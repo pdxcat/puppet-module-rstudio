@@ -1,22 +1,20 @@
 class rstudio {
     include package::virtual
 
+    include rstudio::params
+    include rstudio::apacheconfig
+
     realize(
         Package['r-base'],
         Package['rstudio-server'],
     )
 
-    # The port the web server will listen on,
-    # the default is 80
-    $rstudio_port = 80    
     file {
         "/etc/rstudio/rserver.conf":
             ensure  => file,
             content => template("rstudio/rserver.erb"),
     }
 
-    # The maximum file size to upload (in MB)
-    $rstudio_size = 100
     file {
         "/etc/rstudio/rsession.conf":
             ensure  => file,
