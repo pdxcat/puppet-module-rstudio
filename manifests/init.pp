@@ -23,12 +23,9 @@ class rstudio {
             content => template("rstudio/rsession.erb"),
     }
 
-    service {
-        "rstudio":
-            enable => true,
-            ensure => running,
-            hasrestart => true,
-            hasstatus => true,
+    exec {
+        "/usr/sbin/rstudio-server restart":
+            refreshonly => true,
             require => Package['rstudio-server'],
             subscribe => [
                 File['/etc/rstudio/rserver.conf'],
