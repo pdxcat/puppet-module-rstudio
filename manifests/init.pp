@@ -30,8 +30,10 @@ class rstudio {
             hasrestart => true,
             hasstatus => true,
             require => Package['rstudio-server'],
-            subscribe => File['/etc/rstudio/rserver.conf'],
-            subscribe => File['/etc/rstudio/rsession.conf'],
+            subscribe => [
+                File['/etc/rstudio/rserver.conf'],
+                File['/etc/rstudio/rsession.conf'],
+            ],
     }
 
 }
