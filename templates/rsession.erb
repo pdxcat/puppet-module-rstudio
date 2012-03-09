@@ -1,0 +1,5 @@
+<% if has_variable?("rstudio_size") then -%>
+limit-file-upload-size-mb=<%= rstudio_size %>
+<% else -%>
+limit-file-upload-size-mb=100
+<% end %>
