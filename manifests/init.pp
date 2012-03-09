@@ -11,16 +11,16 @@ class rstudio {
     $rstudio_port = 80    
     file {
         "/etc/rstudio/rserver.conf":
-            ensure => present,
-            source => template("rstudio/rserver.erb"),
+            ensure  => file,
+            content => template("rstudio/rserver.erb"),
     }
 
     # The maximum file size to upload (in MB)
     $rstudio_size = 100
     file {
         "/etc/rstudio/rsession.conf":
-            ensure => present,
-            source => template("rstudio/rsession.erb"),
+            ensure  => file,
+            content => template("rstudio/rsession.erb"),
     }
 
     service {
