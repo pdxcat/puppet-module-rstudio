@@ -1,2 +1,5 @@
-www-port=<%= scope.lookup('rstudio::port') %>
-www-address=127.0.0.1
+<% if has_variable?("port") then -%>
+www-port=<%= port %>
+<% else -%>
+www-port=8787
+<% end %>

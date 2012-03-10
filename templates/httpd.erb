@@ -1,7 +1,7 @@
 NameVirtualHost <%= @ipaddress %>:80
 
 <VirtualHost <%= @ipaddress %>:80 >
-ServerAdmin <%= scope.lookup('rstudio::email' %>
+ServerAdmin <%= email %>
 ServerName <%= @fqdn %>
 
 ProxyRequests Off
@@ -11,6 +11,6 @@ ProxyRequests Off
     Allow from all
 </Proxy>
 
-ProxyPass / http://localhost:<%= scope.lookup('rstudio::port') %>/
-ProxyPassReverse / http://localhost:<%= scope.lookup('rstudio::port') %>/
+ProxyPass / http://localhost:<%= port %>/
+ProxyPassReverse / http://localhost:<%= port %>/
 </VirtualHost>
