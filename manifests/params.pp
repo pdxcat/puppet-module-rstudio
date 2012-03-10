@@ -8,6 +8,6 @@ class rstudio::params {
     $size = 100
 
     # The admin email for the apache reverse proxy
-    $email = root@cat.pdx.edu
+    $email = "root@cat.pdx.edu"
 
 }
