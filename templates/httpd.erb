@@ -1,7 +1,7 @@
 NameVirtualHost <%= @ipaddress %>:80
 
 <VirtualHost <%= @ipaddress %>:80 >
-ServerAdmin <%= params::email %>
+ServerAdmin <%= email %>
 ServerName <%= @fqdn %>
 
 ProxyRequests Off
@@ -11,6 +11,6 @@ ProxyRequests Off
     Allow from all
 </Proxy>
 
-ProxyPass / http://localhost:<%= params::port %>/
-ProxyPassReverse / http://localhost:<%= params::port %>/
+ProxyPass / http://localhost:<%= port %>/
+ProxyPassReverse / http://localhost:<%= port %>/
 </VirtualHost>
