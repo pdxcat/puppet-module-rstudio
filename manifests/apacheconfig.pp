@@ -1,5 +1,12 @@
 class rstudio::apacheconfig {
-    include apache
+
+    case $operatingsystem {
+        'Ubuntu' : {
+            realize(
+                Package['apache2'],
+            )
+        }
+    }
 
     # The admin email for the apache reverse proxy
     $email = 'root@cat.pdx.edu'
