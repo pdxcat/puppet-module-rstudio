@@ -1,4 +1,9 @@
 class rstudio::apacheconfig {
+
+    realize (
+        Package['httpd'],
+    )
+    
     include apache
 
     # The admin email for the apache reverse proxy
