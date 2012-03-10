@@ -1,7 +1,8 @@
 class rstudio::apacheconfig {
     include apache
 
-    include rstudio::params
+    # The admin email for the apache reverse proxy
+    $email = 'root@cat.pdx.edu'
 
     file {
         "/etc/apache2/httpd.conf":
