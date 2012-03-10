@@ -8,7 +8,5 @@ class rstudio::apacheconfig {
         "/etc/apache2/httpd.conf":
             ensure  => present,
             content => template("rstudio/httpd.erb"),
-            require => Package['httpd'],
-            notify  => Service['httpd'],
     }
 }
