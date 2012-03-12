@@ -20,4 +20,13 @@ class rstudio::proxy {
             target  => "/etc/nginx/sites-available/rstudio-proxy.conf",
             require => File["/etc/nginx/sites-available/rstudio-proxy.conf"],
     }
+
+    service {
+        "nginx":
+            hasrestart => true,
+            restart => "service nginx reload",
+            ensure  => running,
+            subscribe => File["/etc/nginx/sites-available/rstudio-proxy.conf"],
+    }
 }
+        
