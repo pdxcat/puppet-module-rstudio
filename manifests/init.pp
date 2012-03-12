@@ -8,7 +8,7 @@ class rstudio {
     # The maximum file size to upload (in MB)
     $size = 100
 
-    include rstudio::apacheconfig
+    include rstudio::proxy
 
 
     realize(
