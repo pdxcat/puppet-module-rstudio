@@ -18,6 +18,6 @@ class rstudio::proxy {
         "/etc/nginx/sites-enabled/rstudio-proxy.conf":
             ensure  => link,
             target  => "/etc/nginx/sites-available/rstudio-proxy.conf",
-            require => "/etc/nginx/sites-available/rstudio-proxy.conf",
+            require => File["/etc/nginx/sites-available/rstudio-proxy.conf"],
     }
 }
