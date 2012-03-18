@@ -32,17 +32,17 @@ class rstudio {
     }
 
     service {
-        case $::operatingsystem {
-            'Ubuntu': {
-                provider => 'upstart',
-            }
-        }
-        ensure      => 'running',
-        require     => Package['rstudio-server'],
-        subscribe   => [
-            File['/etc/rstudio/rserver.conf'],
-            File['/etc/rstudio/rsession.conf'],
-        ],
+        "rstudio-server":
+            provider     => $operatingsystem ? {
+                'Ubuntu' => 'upstart',
+                default  => undef,
+            },
+            ensure      => 'running',
+            require     => Package['rstudio-server'],
+            subscribe   => [
+                File['/etc/rstudio/rserver.conf'],
+                File['/etc/rstudio/rsession.conf'],
+            ],
     }
 
 }
