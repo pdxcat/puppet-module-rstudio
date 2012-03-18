@@ -31,14 +31,18 @@ class rstudio {
             content => template("rstudio/rsession.erb"),
     }
 
-    exec {
-        "/usr/sbin/rstudio-server restart":
-            refreshonly => true,
-            require => Package['rstudio-server'],
-            subscribe => [
-                File['/etc/rstudio/rserver.conf'],
-                File['/etc/rstudio/rsession.conf'],
-            ],
+    service {
+        case $::operatingsystem {
+            'Ubuntu': {
+                provider => 'upstart',
+            }
+        }
+        ensure      => 'running',
+        require     => Package['rstudio-server'],
+        subscribe   => [
+            File['/etc/rstudio/rserver.conf'],
+            File['/etc/rstudio/rsession.conf'],
+        ],
     }
 
 }
