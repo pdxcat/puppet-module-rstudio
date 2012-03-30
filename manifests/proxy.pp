@@ -1,32 +1,18 @@
 class rstudio::proxy {
 
-    case $operatingsystem {
-        'Ubuntu' : {
-            realize(
-                Package['nginx'],
-            )
-        }
+    include nginx
+
+    nginx::site {
+      "rstudio-proxy":
+        domain              => $::fqdn,
+        ssl                 => true,
+        ssl_certificate     => inline_template("/var/lib/ssl/<%= @fqdn %>.crt"),
+        ssl_certificate_key => inline_template("/var/lib/ssl/<%= @fqdn %>.key"),
+        timeout             => 120,
+        proxy               => true,
+        proxy_domain        => '127.0.0.1',
+        proxy_port          => $::rstudio::params::port,
     }
 
-    file {
-        "/etc/nginx/sites-available/rstudio-proxy.conf":
-            ensure  => present,
-            content => template("rstudio/nginx-proxy.erb"),
-    }
-
-    file {
-        "/etc/nginx/sites-enabled/rstudio-proxy.conf":
-            ensure  => link,
-            target  => "/etc/nginx/sites-available/rstudio-proxy.conf",
-            require => File["/etc/nginx/sites-available/rstudio-proxy.conf"],
-    }
-
-    service {
-        "nginx":
-            hasrestart => true,
-            restart => "service nginx reload",
-            ensure  => running,
-            subscribe => File["/etc/nginx/sites-available/rstudio-proxy.conf"],
-    }
 }
         

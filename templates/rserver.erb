@@ -1,5 +1,5 @@
-<% if has_variable?("port") then -%>
-www-port=<%= port %>
+<% if has_variable?("$::rstudio::params::port") then -%>
+www-port=<%= $::rstudio::params::port %>
 <% else -%>
 www-port=8787
 <% end %>

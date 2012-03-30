@@ -1,13 +1,6 @@
 class rstudio {
     include package::virtual
 
-    # The port rstudio will listen on,
-    # the default is 8787
-    $port = 8787    
-    
-    # The maximum file size to upload (in MB)
-    $size = 100
-
     # Set up two proxies:
     #   The first forwards port 80 to 443
     #   The second forwards port 443 to rstudio
