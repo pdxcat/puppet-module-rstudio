@@ -4,14 +4,14 @@ class rstudio::proxy {
 
     nginx::site {
       "rstudio-proxy":
-        domain              => $::fqdn,
+        domain              => 'barbados.cat.pdx.edu',
         ssl                 => true,
-        ssl_certificate     => inline_template("/var/lib/ssl/<%= @fqdn %>.crt"),
-        ssl_certificate_key => inline_template("/var/lib/ssl/<%= @fqdn %>.key"),
+        ssl_certificate     => "/var/lib/ssl/barbados.cat.pdx.edu.crt",
+        ssl_certificate_key => "/var/lib/ssl/barbados.cat.pdx.edu.key",
         timeout             => 120,
         proxy               => true,
         proxy_domain        => '127.0.0.1',
-        proxy_port          => $rstudio::params::port,
+        proxy_port          => '8787',
     }
 
 }
