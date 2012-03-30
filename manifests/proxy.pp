@@ -11,7 +11,7 @@ class rstudio::proxy {
         timeout             => 120,
         proxy               => true,
         proxy_domain        => '127.0.0.1',
-        proxy_port          => $::rstudio::params::port,
+        proxy_port          => "8787",
     }
 
 }
