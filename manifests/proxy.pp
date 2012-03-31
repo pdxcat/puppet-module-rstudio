@@ -8,7 +8,7 @@ class rstudio::proxy {
         ssl                 => true,
         ssl_certificate     => "/var/lib/ssl/barbados.cat.pdx.edu.crt",
         ssl_certificate_key => "/var/lib/ssl/barbados.cat.pdx.edu.key",
-        timeout             => 120,
+        keepalive           => 120,
         proxy               => true,
         proxy_domain        => '127.0.0.1',
         proxy_port          => '8787',
