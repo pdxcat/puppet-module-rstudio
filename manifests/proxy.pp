@@ -5,6 +5,7 @@ class rstudio::proxy {
 
     nginx::site {
       "rstudio-proxy":
+        aliases             => [ "$::fqdn", ],
         domain              => $::fqdn,
         ssl                 => true,
         ssl_certificate     => inline_template("/var/lib/ssl/<%= @fqdn %>.crt"),
@@ -16,4 +17,3 @@ class rstudio::proxy {
     }
 
 }
-        
