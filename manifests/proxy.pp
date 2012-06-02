@@ -8,6 +8,7 @@ class rstudio::proxy {
         aliases             => [ "$::fqdn", ],
         domain              => $::fqdn,
         ssl                 => true,
+        port                => 443,
         ssl_certificate     => inline_template("/var/lib/ssl/<%= @fqdn %>.crt"),
         ssl_certificate_key => inline_template("/var/lib/ssl/<%= @fqdn %>.key"),
         keepalive           => 120,
