@@ -8,6 +8,9 @@ class rstudio {
   singleton_resources(
     Package['r-base'],
     Package['rstudio-server'],
+    Package['libssl0.9.8'],
+    Package['libapparmor1'],
+    Package['apparmor-utils'],
   )
 
   file {
