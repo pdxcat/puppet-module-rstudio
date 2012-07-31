@@ -1,9 +1,16 @@
-class rstudio {
+class rstudio (
+  $aliases     = [ $::fqdn, ],
+  $domain      = $::fqdn,
+) {
 
   # Set up two proxies:
   #   The first forwards port 80 to 443
   #   The second forwards port 443 to rstudio
-  include rstudio::proxy
+  class {
+    'rstudio::proxy':
+      aliases => $aliases,
+      domain  => $domain,
+  }
 
   singleton_resources(
     Package['r-base'],
@@ -14,19 +21,19 @@ class rstudio {
   )
 
   file {
-    "/etc/rstudio/rserver.conf":
+    '/etc/rstudio/rserver.conf':
       ensure  => file,
-      content => template("rstudio/rserver.erb"),
+      content => template('rstudio/rserver.erb'),
   }
 
   file {
-    "/etc/rstudio/rsession.conf":
+    '/etc/rstudio/rsession.conf':
       ensure  => file,
-      content => template("rstudio/rsession.erb"),
+      content => template('rstudio/rsession.erb'),
   }
 
   service {
-    "rstudio-server":
+    'rstudio-server':
       ensure     => running,
       start      => '/usr/sbin/rstudio-server start',
       stop       => '/usr/sbin/rstudio-server stop',
