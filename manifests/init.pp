@@ -20,6 +20,8 @@ class rstudio (
     Package['apparmor-utils'],
   )
 
+  $port = $rstudio::params::port
+  $size = $rstudio::params::size
   file {
     '/etc/rstudio/rserver.conf':
       ensure  => file,
