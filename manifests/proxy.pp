@@ -1,6 +1,8 @@
 class rstudio::proxy(
   $domain,
   $aliases,
+  $ssl_key,
+  $ssl_cert,
 ) {
 
   include ::rstudio::params
@@ -13,11 +15,11 @@ class rstudio::proxy(
       "localhost:${::rstudio::params::port}",
     ],
   }
-  
+ 
   nginx::resource::vhost { $domain:
     ssl                  => true,
-    ssl_cert             => "/var/lib/ssl/${domain}.crt",
-    ssl_key              => "/var/lib/ssl/${domain}.key",
+    ssl_cert             => $ssl_cert,
+    ssl_key              => $ssl_key,
     use_default_location => false,
   }
 

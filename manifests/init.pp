@@ -1,6 +1,8 @@
 class rstudio (
-  $aliases     = [ $::fqdn, ],
-  $domain      = $::fqdn,
+  $ssl_cert,
+  $ssl_key,
+  $aliases = [ $::fqdn, ],
+  $domain  = $::fqdn,
 ) {
 
   # Set up two proxies:
@@ -8,8 +10,10 @@ class rstudio (
   #   The second forwards port 443 to rstudio
   class {
     'rstudio::proxy':
-      aliases => $aliases,
-      domain  => $domain,
+      aliases  => $aliases,
+      domain   => $domain,
+      ssl_key  => $ssl_key,
+      ssl_cert => $ssl_cert,
   }
 
   singleton_resources(
