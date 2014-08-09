@@ -3,6 +3,8 @@ class rstudio::proxy(
   $aliases,
   $ssl_key,
   $ssl_cert,
+  $ssl_protocols = undef,
+  $ssl_ciphers   = undef,
 ) {
 
   include ::rstudio::params
@@ -20,6 +22,8 @@ class rstudio::proxy(
     ssl                  => true,
     ssl_cert             => $ssl_cert,
     ssl_key              => $ssl_key,
+    ssl_protocols        => $ssl_protocols,
+    ssl_ciphers          => $ssl_ciphers,
     use_default_location => false,
   }
 
