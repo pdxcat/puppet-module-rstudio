@@ -44,13 +44,13 @@ class rstudio (
 
   service {
     'rstudio-server':
-      ensure     => running,
-      start      => '/usr/sbin/rstudio-server start',
-      stop       => '/usr/sbin/rstudio-server stop',
-      restart    => '/usr/sbin/rstudio-server restart',
-      status     => '/sbin/status rstudio-server',
-      require    => Package['rstudio-server'],
-      subscribe  => [
+      ensure    => running,
+      start     => '/usr/sbin/rstudio-server start',
+      stop      => '/usr/sbin/rstudio-server stop',
+      restart   => '/usr/sbin/rstudio-server restart',
+      status    => '/sbin/status rstudio-server',
+      require   => Package['rstudio-server'],
+      subscribe => [
         File['/etc/rstudio/rserver.conf'],
         File['/etc/rstudio/rsession.conf'],
       ],

@@ -17,7 +17,7 @@ class rstudio::proxy(
       "localhost:${::rstudio::params::port}",
     ],
   }
- 
+
   nginx::resource::vhost { $domain:
     ssl                  => true,
     ssl_cert             => $ssl_cert,
@@ -28,19 +28,19 @@ class rstudio::proxy(
   }
 
   nginx::resource::location { '/-nossl':
-    location                   => '/',
-    ensure                     => present,
-    vhost                      => $domain,
-    location_custom_cfg        => {
+    ensure              => present,
+    location            => '/',
+    vhost               => $domain,
+    location_custom_cfg => {
       'return' => "301 https://${domain}\$request_uri"
     },
   }
   
   nginx::resource::location { '/':
-    ensure                     => present,
-    ssl                        => true,
-    ssl_only                   => true,
-    vhost                      => $domain,
-    proxy                      => 'http://rstudio_upstream',
+    ensure   => present,
+    ssl      => true,
+    ssl_only => true,
+    vhost    => $domain,
+    proxy    => 'http://rstudio_upstream',
   }
 }
