@@ -1,23 +1,46 @@
 class rstudio::proxy(
   $domain,
   $aliases,
+  $ssl_key,
+  $ssl_cert,
+  $ssl_protocols = undef,
+  $ssl_ciphers   = undef,
 ) {
 
-    include rstudio::params
-    include nginx
+  include ::rstudio::params
+  include ::nginx
 
-    nginx::site {
-      'rstudio-proxy':
-        aliases             => $aliases,
-        domain              => $domain,
-        ssl                 => true,
-        port                => 443,
-        ssl_certificate     => inline_template("/var/lib/ssl/<%= @domain %>.crt"),
-        ssl_certificate_key => inline_template("/var/lib/ssl/<%= @domain %>.key"),
-        keepalive           => 120,
-        proxy               => true,
-        proxy_domain        => '127.0.0.1',
-        proxy_port          => $::rstudio::params::port,
-    }
+  ##TODO: Make aliases work again
 
+  nginx::resource::upstream { 'rstudio_upstream':
+    members => [
+      "localhost:${::rstudio::params::port}",
+    ],
+  }
+ 
+  nginx::resource::vhost { $domain:
+    ssl                  => true,
+    ssl_cert             => $ssl_cert,
+    ssl_key              => $ssl_key,
+    ssl_protocols        => $ssl_protocols,
+    ssl_ciphers          => $ssl_ciphers,
+    use_default_location => false,
+  }
+
+  nginx::resource::location { '/-nossl':
+    location                   => '/',
+    ensure                     => present,
+    vhost                      => $domain,
+    location_custom_cfg        => {
+      'return' => "301 https://${domain}\$request_uri"
+    },
+  }
+  
+  nginx::resource::location { '/':
+    ensure                     => present,
+    ssl                        => true,
+    ssl_only                   => true,
+    vhost                      => $domain,
+    proxy                      => 'http://rstudio_upstream',
+  }
 }
