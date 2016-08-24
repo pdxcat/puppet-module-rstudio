@@ -19,6 +19,7 @@ class rstudio::proxy(
   }
 
   nginx::resource::vhost { $domain:
+    ipv6_enable          => true,
     ssl                  => true,
     ssl_cert             => $ssl_cert,
     ssl_key              => $ssl_key,
