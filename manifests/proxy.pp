@@ -35,7 +35,7 @@ class rstudio::proxy(
       'return' => "301 https://${domain}\$request_uri"
     },
   }
-  
+
   nginx::resource::location { '/':
     ensure   => present,
     ssl      => true,
